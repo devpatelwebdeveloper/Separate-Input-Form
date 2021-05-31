@@ -1,4 +1,5 @@
 export const fieldValidation = (fieldName, fieldValue) => {
+  console.log(`fieldName`, fieldName);
   if (fieldValue.trim() === "") {
     return `${fieldName} is required`;
   }
@@ -7,7 +8,7 @@ export const fieldValidation = (fieldName, fieldValue) => {
   }
   return null;
 };
-export const provinceValidation = (fieldName, fieldValue) => {
+const provinceValidation = (fieldName, fieldValue) => {
   if (fieldValue.trim() === "") {
     return `${fieldName} is required`;
   }
@@ -60,17 +61,17 @@ export const postalvalidation = (postal) => {
   return "Please enter a valid postal (A2A 2A2)";
 };
 
-// export const validate = {
-//   firstName: (name) => fieldValidation("First Name", name),
-//   lastName: (name) => fieldValidation("Last Name", name),
-//   merchBusinessName: (name) => fieldValidation("Merchant business name", name),
-//   quickbooksCompanyId: (name) => fieldValidation("Quickbooks CompanyId", name),
-//   merchStreetAddress: (name) =>
-//     fieldValidation("Merchant Street Address", name),
-//   city: (name) => fieldValidation("City", name),
-//   province: (name) => provinceValidation("Province", name),
-//   postal: postalvalidation,
-//   phone: phonenumberValidation,
-//   email: emailValidation,
-//   complaintDetails: (name) => fieldValidation("Complaint Details", name)
-// };
+export const validate = {
+  firstName: (name) => fieldValidation("First Name", name),
+  lastName: (name) => fieldValidation("Last Name", name),
+  merchBusinessName: (name) => fieldValidation("Merchant business name", name),
+  quickbooksCompanyId: (name) => fieldValidation("Quickbooks CompanyId", name),
+  merchStreetAddress: (name) =>
+    fieldValidation("Merchant Street Address", name),
+  city: (name) => fieldValidation("City", name),
+  province: (name) => provinceValidation("Province", name),
+  postal: postalvalidation,
+  phone: phonenumberValidation,
+  email: emailValidation,
+  complaintDetails: (name) => fieldValidation("Complaint Details", name)
+};

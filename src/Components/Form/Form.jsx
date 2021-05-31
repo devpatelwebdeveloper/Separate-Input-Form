@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Form.module.scss";
-import FormInput from "./input";
+import FormInput from "../FormInput";
 // import { validate } from "./utils";
 import {
   fieldValidation,
@@ -10,12 +10,31 @@ import {
   postalvalidation
 } from "./utils";
 
-export default function CodeOfConductForm() {
+export default function CodeOfConductForm({ fields, hiddenFields }) {
   const [values, setValues] = useState({
-    email: ""
+    ...fields
   });
-  const { email } = values;
-  //
+  //Test Validate
+  const validate = {};
+  Object.keys(fields).forEach((keyVal) => {
+    console.log(`Validate key`, fields[keyVal].label);
+    switch (keyVal) {
+      case "email":
+        validate.email = emailValidation;
+        break;
+      case "phone":
+        validate.phone = phonenumberValidation;
+        break;
+      default:
+        validate[keyVal] = (name) => {
+          fieldValidation(fields[keyVal].label, name);
+        };
+    }
+  });
+  //Test Validate
+
+  // const { email } = values;
+
   const [errors, setErrors] = useState({});
 
   const [touched, setTouched] = useState({});
@@ -92,6 +111,7 @@ export default function CodeOfConductForm() {
     ) {
       //Submitting form Data
       console.log(values);
+
       document.getElementById("form").style.display = "none";
       document.getElementById("successmessage").style.display = "block";
     }
@@ -101,7 +121,35 @@ export default function CodeOfConductForm() {
     <>
       <form id="form">
         <div className={styles.FormContainer}>
-          <FormInput
+          <div style={{ display: "none" }}>
+            {hiddenFields &&
+              Object.keys(hiddenFields).map((keyVal) => {
+                return (
+                  <FormInput
+                    key={keyVal}
+                    type="hidden"
+                    value={hiddenFields[keyVal]}
+                    inputLabel={keyVal}
+                  />
+                );
+              })}
+          </div>
+          {Object.keys(values).map((keyVal) => {
+            return (
+              <FormInput
+                key={keyVal}
+                type={values[keyVal].type}
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                value={values[keyVal].value}
+                touched={touched[keyVal]}
+                error={errors[keyVal]}
+                inputLabel={values[keyVal].label}
+                required
+              />
+            );
+          })}
+          {/* <FormInput
             type="text"
             handleChange={handleChange}
             handleBlur={handleBlur}
@@ -110,7 +158,7 @@ export default function CodeOfConductForm() {
             error={errors.email}
             inputLabel="Email"
             required
-          />
+          /> */}
           <button onClick={handleSubmit}>Submit</button>
         </div>
       </form>

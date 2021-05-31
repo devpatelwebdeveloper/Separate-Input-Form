@@ -5,7 +5,23 @@ export default function App() {
   return (
     <div className="App">
       <h1>Hello CodeSandbox</h1>
-      <Form />
+      <Form
+        fields={{
+          firstName: {
+            type: "text",
+            value: "",
+            show: true,
+            label: "First Name"
+          }
+          // email: "",
+          // phone: ""
+        }}
+        // hiddenFields={{
+        //   elqSiteID: "elqSiteID",
+        //   language: "en-CA",
+        //   elqFormName: "UntitledForm-1579809113440"
+        // }}
+      />
     </div>
   );
 }
